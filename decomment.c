@@ -46,8 +46,7 @@ enum Statetype handleStringLiteralState(char inputChar)
 
 }
 
-enum Statetype
-handleCharacterLiteralState(char inputChar)
+enum Statetype handleCharacterLiteralState(char inputChar)
 { 
     enum Statetype state;
     if (inputChar == '/') {
@@ -61,8 +60,7 @@ handleCharacterLiteralState(char inputChar)
     return state;
 }
 
-enum Statetype 
-handleEscapeStringState(char inputChar)
+enum Statetype handleEscapeStringState(char inputChar)
 {
     enum Statetype state;
     if (inputChar) {
@@ -72,8 +70,7 @@ handleEscapeStringState(char inputChar)
     return state;
 }
 
-enum Statetype 
-handleEscapeCharacterState(char inputChar)
+enum Statetype handleEscapeCharacterState(char inputChar)
 {
     enum Statetype state;
     if (inputChar) {
@@ -87,7 +84,7 @@ enum Statetype handleMaybeACommentState(char inputChar)
 {
     enum Statetype state;
     if (inputChar == '*') {
-        putChar(" ");
+        putchar(' ');
         state = IT_IS_A_COMMENT;
     }
     else if (inputChar == '/') {
@@ -112,8 +109,7 @@ enum Statetype handleMaybeACommentState(char inputChar)
     return state;
 }
 
-enum Statetype 
-handleItIsACommentState(char inputChar)
+enum Statetype handleItIsACommentState(char inputChar)
 {
     enum Statetype state;
     if (inputChar == '*') {
@@ -124,10 +120,10 @@ handleItIsACommentState(char inputChar)
         putchar(inputChar);
         state = IT_IS_A_COMMENT;
     }
+    return state;
 }
 
-enum Statetype 
-handleMaybeClosingState(char inputChar)
+enum Statetype handleMaybeClosingState(char inputChar)
 {
     enum Statetype state;
     if (inputChar == '/') {
@@ -138,6 +134,7 @@ handleMaybeClosingState(char inputChar)
         putchar(inputChar);
         state = IT_IS_A_COMMENT;
     }
+    return state;
 }
 
 int main(void)
@@ -156,19 +153,19 @@ int main(void)
                 state = handleCharacterLiteralState(inputChar);
                 break;
             case ESCAPE_STRING:
-                state = handleEscapeCharacter(inputChar);
+                state = handleEscapeCharacterState(inputChar);
                 break;
             case ESCAPE_CHARACTER:
-                state = handleEscapeCharacter(inputChar);
+                state = handleEscapeCharacterState(inputChar);
                 break;
             case MAYBE_A_COMMENT:
-                state = handleMaybeAComment(inputChar);
+                state = handleMaybeACommentState(inputChar);
                 break;
             case IT_IS_A_COMMENT:
-                state = handleItIsAComment(inputChar);
+                state = handleItIsACommentState(inputChar);
                 break;
             case MAYBE_CLOSING:
-                state = handleMaybeClosing(inputChar);
+                state = handleMaybeClosingState(inputChar);
                 break;
         }
     }
