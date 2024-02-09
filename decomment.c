@@ -34,7 +34,7 @@ enum Statetype handleStringLiteralState(int inputChar)
         putchar(inputChar);
         state = INITIAL;
     }
-    else if (inputChar == '/'){
+    else if (inputChar == '\\'){
         putchar(inputChar);
         state = ESCAPE_STRING;
     }
@@ -49,7 +49,11 @@ enum Statetype handleStringLiteralState(int inputChar)
 enum Statetype handleCharacterLiteralState(int inputChar)
 { 
     enum Statetype state;
-    if (inputChar == '/') {
+    if (inputChar == '\'') {
+        putchar(inputChar);
+        state = INITIAL;
+    }
+    else if (inputChar == '\\') {
         putchar(inputChar);
         state = ESCAPE_CHARACTER;
     }
