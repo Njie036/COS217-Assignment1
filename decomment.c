@@ -141,7 +141,7 @@ int main(void)
 {
     char inputChar;
     enum Statetype state = INITIAL;
-    while ((inputChar = getchar()) != EOF) {
+    while ((inputChar = getchar()) == EOF) {
         switch (state) {
             case INITIAL:
                 state = handleInitialState(inputChar);
