@@ -128,11 +128,15 @@ enum Statetype handleMaybeClosingState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '/') {
-        putchar(' ');
         state = INITIAL;
     }
+    else if (inputChar == '*'){
+        state = MAYBE_CLOSING;
+    }
     else {
-        putchar(inputChar);
+        if (inputChar == '\n') {
+            putchar(inputChar);
+        }
         state = IT_IS_A_COMMENT;
     }
     return state;
