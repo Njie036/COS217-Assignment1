@@ -5,7 +5,7 @@ enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL,
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
 MAYBE_CLOSING};
 
-enum Statetype handleInitialState(char inputChar)
+enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '/') {
@@ -27,7 +27,7 @@ enum Statetype handleInitialState(char inputChar)
 
 }
 
-enum Statetype handleStringLiteralState(char inputChar)
+enum Statetype handleStringLiteralState(int inputChar)
 { 
     enum Statetype state;
     if (inputChar == '"') {
@@ -46,7 +46,7 @@ enum Statetype handleStringLiteralState(char inputChar)
 
 }
 
-enum Statetype handleCharacterLiteralState(char inputChar)
+enum Statetype handleCharacterLiteralState(int inputChar)
 { 
     enum Statetype state;
     if (inputChar == '/') {
@@ -60,7 +60,7 @@ enum Statetype handleCharacterLiteralState(char inputChar)
     return state;
 }
 
-enum Statetype handleEscapeStringState(char inputChar)
+enum Statetype handleEscapeStringState(int inputChar)
 {
     enum Statetype state;
     if (inputChar) {
@@ -70,7 +70,7 @@ enum Statetype handleEscapeStringState(char inputChar)
     return state;
 }
 
-enum Statetype handleEscapeCharacterState(char inputChar)
+enum Statetype handleEscapeCharacterState(int inputChar)
 {
     enum Statetype state;
     if (inputChar) {
@@ -80,7 +80,7 @@ enum Statetype handleEscapeCharacterState(char inputChar)
     return state;
 }
 
-enum Statetype handleMaybeACommentState(char inputChar)
+enum Statetype handleMaybeACommentState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '*') {
@@ -109,7 +109,7 @@ enum Statetype handleMaybeACommentState(char inputChar)
     return state;
 }
 
-enum Statetype handleItIsACommentState(char inputChar)
+enum Statetype handleItIsACommentState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '*') {
@@ -123,7 +123,7 @@ enum Statetype handleItIsACommentState(char inputChar)
     return state;
 }
 
-enum Statetype handleMaybeClosingState(char inputChar)
+enum Statetype handleMaybeClosingState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '/') {
@@ -139,9 +139,9 @@ enum Statetype handleMaybeClosingState(char inputChar)
 
 int main(void)
 {
-    char inputChar;
+    int inputChar;
     enum Statetype state = INITIAL;
-    while ((inputChar = getchar())) {
+    while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
                 state = handleInitialState(inputChar);
