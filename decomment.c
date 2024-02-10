@@ -6,6 +6,8 @@ enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL,
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
 MAYBE_CLOSING};
 
+
+int lineCount = 0;
 enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
@@ -118,6 +120,7 @@ enum Statetype handleItIsACommentState(int inputChar)
     }
     else {
         if (inputChar == '\n') {
+            lineCount++;
             putchar(inputChar);
         }
         state = IT_IS_A_COMMENT;
@@ -147,8 +150,6 @@ int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
-    int lineCount = 1;
-    int whereCommentStarts = 0;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
@@ -177,10 +178,6 @@ int main(void)
                 break;
         }
 
-        if (inputChar == '\n') {
-            lineCount ++;
-            if (state == IT_IS_A_COMMENT) whereCommentStarts = lineCount; 
-        }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
     if (state == MAYBE_A_COMMENT) {
@@ -188,7 +185,7 @@ int main(void)
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
     if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
-        fprintf(stderr, "Error: line %d: unterminated comment\n", whereCommentStarts);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", lineCount);
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
