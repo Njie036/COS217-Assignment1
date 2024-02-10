@@ -179,8 +179,9 @@ int main(void)
         }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
-
-
+    if (state == MAYBE_A_COMMENT) {
+        putchar('/');
+    }
     /* Special case for ending in an unterminated comment and print out exit failure message */
 
 
