@@ -148,6 +148,7 @@ int main(void)
     int inputChar;
     enum Statetype state = INITIAL;
     int lineCount = 1;
+    int whereCommentStart = 0;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
@@ -175,6 +176,11 @@ int main(void)
                 state = handleMaybeClosingState(inputChar);
                 break;
         }
+
+        if (state == IT_IS_A_COMMENT) {
+            whereCommentStart = lineCount;
+        }
+
         if (inputChar == '\n') {
             lineCount ++;
         }
@@ -185,7 +191,7 @@ int main(void)
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
     if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
-        fprintf(stderr, "Error: line %d: unterminated comment\n", lineCount);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", whereCommentStart);
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
