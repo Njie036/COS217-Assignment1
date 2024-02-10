@@ -178,5 +178,14 @@ int main(void)
                 break;
         }
     }
+    /*special case for ending with a forward slash when in maybe its a comment*/ 
+
+
+    /* Special case for ending in an unterminated comment and print out exit failure message */
+
+
+    /* Special case for ending in an unterminated comment and print out exit failure message */
+
+    
     return 0;
 }
