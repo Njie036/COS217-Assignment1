@@ -179,12 +179,10 @@ int main(void)
         }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
-    enum Statetype state;
     if (inputChar == '/') {
         putchar('/');
         state = MAYBE_A_COMMENT;
     }
-    return state;
 
 
 
