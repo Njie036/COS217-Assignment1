@@ -89,7 +89,7 @@ enum Statetype handleMaybeACommentState(int inputChar)
         state = IT_IS_A_COMMENT;
     }
     else if (inputChar == '/') {
-        putchar(inputChar); /*I added this to handle the case in 04..7.txt*/
+        putchar(inputChar); 
         state = MAYBE_A_COMMENT;
     }
     else if (inputChar == '\'') {
@@ -147,7 +147,7 @@ int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
-    int lineCount = 0;
+    int lineCount = 1;
     int whereCommentStarts = 0;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
