@@ -147,8 +147,8 @@ int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
-    int lineCount = 1;
-    int whereCommentStarts = 1;
+    int lineCount = 0;
+    int whereCommentStarts = 0;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
