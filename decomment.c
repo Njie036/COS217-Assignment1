@@ -160,7 +160,7 @@ int main(void)
                 state = handleCharacterLiteralState(inputChar);
                 break;
             case ESCAPE_STRING:
-                state = handleEscapeCharacterState(inputChar);
+                state = handleEscapeStringState(inputChar);
                 break;
             case ESCAPE_CHARACTER:
                 state = handleEscapeCharacterState(inputChar);
