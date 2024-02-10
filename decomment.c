@@ -68,20 +68,16 @@ enum Statetype handleCharacterLiteralState(int inputChar)
 enum Statetype handleEscapeStringState(int inputChar)
 {
     enum Statetype state;
-    if (inputChar) {
-        putchar(inputChar);
-        state = STRING_LITERAL;
-    }
+    putchar(inputChar);
+    state = STRING_LITERAL;
     return state;
 }
 
 enum Statetype handleEscapeCharacterState(int inputChar)
 {
     enum Statetype state;
-    if (inputChar) {
-        putchar(inputChar);
-        state = CHARACTER_LITERAL;
-    }
+    putchar(inputChar);
+    state = CHARACTER_LITERAL;
     return state;
 }
 
@@ -151,7 +147,7 @@ int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
-    int lineCount = 0;
+    int lineCount = 1;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
@@ -189,7 +185,7 @@ int main(void)
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
     if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
-        fprintf(stderr, "Error: line %d : unterminated comment\n", lineCount);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", lineCount);
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
