@@ -6,10 +6,6 @@ enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL,
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
 MAYBE_CLOSING};
 
-
-int lineCount = 0;
-int whereCommentStarts = 0;
-
 enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
@@ -123,7 +119,6 @@ enum Statetype handleItIsACommentState(int inputChar)
     else {
         if (inputChar == '\n') {
             putchar(inputChar);
-            whereCommentStarts = lineCount;
         }
         state = IT_IS_A_COMMENT;
     }
@@ -152,6 +147,8 @@ int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
+    int lineCount = 0;
+    int whereCommentStarts = 0;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
@@ -180,10 +177,10 @@ int main(void)
                 break;
         }
 
-        /*if (inputChar == '\n') {
+        if (inputChar == '\n') {
             lineCount ++;
             if (state == IT_IS_A_COMMENT) whereCommentStarts = lineCount; 
-        } */
+        }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
     if (state == MAYBE_A_COMMENT) {
