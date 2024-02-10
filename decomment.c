@@ -183,10 +183,13 @@ int main(void)
         putchar('/');
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
-
-
-    /* Special case for ending in an unterminated comment and print out exit failure message */
-
-    
-    return 0;
+    if (state == IT_IS_A_COMMENT) {
+        printf("Error: line %d\n unterminated comment\n");
+        return "EXIT_FAILURE";
+    }
+    if (state == MAYBE_CLOSING) {
+        printf("Error: line %d\n unterminated comment\n");
+        return "EXIT_FAILURE";
+    }   
+    return "EXIT_SUCCESS";
 }
