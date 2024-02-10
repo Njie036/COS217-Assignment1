@@ -7,7 +7,7 @@ ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT,
 MAYBE_CLOSING};
 
 
-int lineCount = 1;
+int lineCount = 0;
 enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
