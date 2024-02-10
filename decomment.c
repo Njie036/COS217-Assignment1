@@ -193,5 +193,5 @@ int main(void)
         printf("Error: line %d\n unterminated comment\n", charCount);
         return 0;
     }   
-    return 0;
+    return 1;
 }
