@@ -88,8 +88,12 @@ enum Statetype handleMaybeACommentState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '*') {
-        /*putchar(' ');*/
+        putchar(' ');
         state = IT_IS_A_COMMENT;
+    }
+    else if (inputChar == '/') {
+        putchar(inputChar);   /*I added this to handle the case in 04..7.txt*/
+        state = MAYBE_A_COMMENT;
     }
     else if (inputChar == '\'') {
         putchar('/');
@@ -175,7 +179,6 @@ int main(void)
         }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
-
 
 
     /* Special case for ending in an unterminated comment and print out exit failure message */
