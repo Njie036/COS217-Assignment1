@@ -89,7 +89,7 @@ enum Statetype handleMaybeACommentState(int inputChar)
         state = IT_IS_A_COMMENT;
     }
     else if (inputChar == '/') {
-        /*putchar(inputChar); */  /*I added this to handle the case in 04..7.txt*/
+        putchar(inputChar); /*I added this to handle the case in 04..7.txt*/
         state = MAYBE_A_COMMENT;
     }
     else if (inputChar == '\'') {
