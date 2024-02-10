@@ -179,7 +179,7 @@ int main(void)
 
         if (inputChar == '\n') {
             lineCount ++;
-            if (state == MAYBE_CLOSING || state == MAYBE_A_COMMENT) {
+            if (state == MAYBE_CLOSING) {
                 whereCommentStarts = lineCount;
             }
         }
