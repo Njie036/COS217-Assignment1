@@ -117,6 +117,7 @@ enum Statetype handleItIsACommentState(int inputChar)
     enum Statetype state;
     if (inputChar == '*') {
         state = MAYBE_CLOSING;
+        lineCount++;
     }
     else {
         if (inputChar == '\n') {
