@@ -185,11 +185,13 @@ int main(void)
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
     if (state == IT_IS_A_COMMENT) {
-        printf("Error: line %d : unterminated comment\n", lineCount);
+        /*printf("Error: line %d : unterminated comment\n", lineCount);
+        return 0; */
         return 0;
     }
     if (state == MAYBE_CLOSING) {
-        printf("Error: line %d : unterminated comment\n", lineCount);
+        /*printf("Error: line %d : unterminated comment\n", lineCount);
+        return 0; */
         return 0;
     }   
     return 0;
