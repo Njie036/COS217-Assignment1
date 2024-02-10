@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL, 
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
@@ -150,7 +151,7 @@ int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
-    /*int lineCount = 0; */
+    int lineCount = 0;
     while ((inputChar = getchar()) != EOF) {
         switch (state) {
             case INITIAL:
@@ -178,21 +179,18 @@ int main(void)
                 state = handleMaybeClosingState(inputChar);
                 break;
         }
+        if (inputChar == '\n') {
+            lineCount ++;
+        }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
     if (state == MAYBE_A_COMMENT) {
         putchar('/');
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
-    if (state == IT_IS_A_COMMENT) {
-        /*printf("Error: line %d : unterminated comment\n", lineCount);
-        return 0; */
-        return 0;
+    if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
+        fprintf(stderr, "Error: line %d : unterminated comment\n", lineCount);
+        return EXIT_FAILURE;
     }
-    if (state == MAYBE_CLOSING) {
-        /*printf("Error: line %d : unterminated comment\n", lineCount);
-        return 0; */
-        return 0;
-    }   
-    return 0;
+    return EXIT_SUCCESS;
 }
