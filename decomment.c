@@ -179,9 +179,7 @@ int main(void)
 
         if (inputChar == '\n') {
             lineCount ++;
-            if (state == MAYBE_CLOSING) {
-                whereCommentStarts = lineCount;
-            }
+            if (state == IT_IS_A_COMMENT) whereCommentStarts = lineCount; 
         }
     }
     /*special case for ending with a forward slash when in maybe its a comment*/ 
