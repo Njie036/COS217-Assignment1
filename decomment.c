@@ -142,7 +142,7 @@ enum Statetype handleMaybeClosingState(int inputChar)
     }
     else {
         if (inputChar == '\n') {
-            inComment = lineCount + 1;
+            inComment += lineCount;
             putchar(inputChar);
         }
         state = IT_IS_A_COMMENT;
@@ -189,7 +189,7 @@ int main(void)
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
     if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
-        fprintf(stderr, "Error: line %d: unterminated comment\n", lineCount);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", inComment);
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
