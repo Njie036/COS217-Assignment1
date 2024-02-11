@@ -8,6 +8,7 @@ MAYBE_CLOSING};
 
 
 int lineCount = 0;
+int inComment = 0;
 enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
@@ -141,7 +142,7 @@ enum Statetype handleMaybeClosingState(int inputChar)
     }
     else {
         if (inputChar == '\n') {
-            lineCount++;
+            inComment = lineCount + 1;
             putchar(inputChar);
         }
         state = IT_IS_A_COMMENT;
