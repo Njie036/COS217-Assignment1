@@ -139,7 +139,6 @@ enum Statetype handleMaybeClosingState(int inputChar)
         state = INITIAL;
     }
     else if (inputChar == '*'){
-        lineCount++;
         state = MAYBE_CLOSING;
     }
     else {
