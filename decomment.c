@@ -94,7 +94,7 @@ enum Statetype handleMaybeACommentState(int inputChar)
     }
     else if (inputChar == '/') {
         putchar(inputChar); 
-        state = IT_IS_A_COMMENT;
+        state = MAYBE_A_COMMENT;
     }
     else if (inputChar == '\'') {
         putchar('/');
