@@ -34,6 +34,7 @@ enum Statetype handleStringLiteralState(int inputChar)
 { 
     enum Statetype state;
     if (inputChar == '"') {
+        lineCount++;
         putchar(inputChar);
         state = INITIAL;
     }
