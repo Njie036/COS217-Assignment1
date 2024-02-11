@@ -7,9 +7,10 @@ ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT,
 MAYBE_CLOSING};
 
 
-int lineCount = 0;
+int lineCount = 1;
 enum Statetype handleInitialState(int inputChar)
 {
+    lineCount++;
     enum Statetype state;
     if (inputChar == '/') {
         state = MAYBE_A_COMMENT;
