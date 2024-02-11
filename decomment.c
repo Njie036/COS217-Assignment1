@@ -23,9 +23,6 @@ enum Statetype handleInitialState(int inputChar)
         putchar(inputChar);
         state = CHARACTER_LITERAL;
     }
-    else if (inputChar == '\n') {
-        lineCount++;
-    }
     else { 
         putchar(inputChar);
         state = INITIAL;
