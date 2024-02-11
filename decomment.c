@@ -88,6 +88,7 @@ enum Statetype handleMaybeACommentState(int inputChar)
     enum Statetype state;
     if (inputChar == '*') {
         putchar(' ');
+        lineCount++;
         state = IT_IS_A_COMMENT;
     }
     else if (inputChar == '/') {
