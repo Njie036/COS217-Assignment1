@@ -187,7 +187,7 @@ int main(void)
     }
     /* Special case for ending in an unterminated comment and print out exit failure message */
     if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
-        fprintf(stderr, "Error: line %d: unterminated comment\n", inComment);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", lineCount);
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
