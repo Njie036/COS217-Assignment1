@@ -118,13 +118,13 @@ enum Statetype handleMaybeACommentState(int inputChar)
 enum Statetype handleItIsACommentState(int inputChar)
 {
     enum Statetype state;
-    lineCount++;
     if (inputChar == '*') {
         state = MAYBE_CLOSING;
     }
     else {
         if (inputChar == '\n') {
             putchar(inputChar);
+            lineCount++;
             inComment += lineCount;
         }
         state = IT_IS_A_COMMENT;
