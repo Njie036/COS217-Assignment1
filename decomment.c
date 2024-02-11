@@ -123,9 +123,9 @@ enum Statetype handleItIsACommentState(int inputChar)
     }
     else {
         if (inputChar == '\n') {
+            putchar(inputChar);
             lineCount++;
             inComment += lineCount;
-            putchar(inputChar);
         }
         state = IT_IS_A_COMMENT;
     }
