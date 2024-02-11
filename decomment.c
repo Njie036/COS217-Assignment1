@@ -8,7 +8,7 @@ MAYBE_CLOSING};
 
 
 int lineCount = 0;
-int inComment = 0;
+int inComment = 1;
 enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
