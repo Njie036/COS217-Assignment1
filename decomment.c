@@ -10,7 +10,6 @@ MAYBE_CLOSING};
 int lineCount = 1;
 enum Statetype handleInitialState(int inputChar)
 {
-    lineCount++;
     enum Statetype state;
     if (inputChar == '/') {
         state = MAYBE_A_COMMENT;
