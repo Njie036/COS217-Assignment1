@@ -123,7 +123,6 @@ enum Statetype handleItIsACommentState(int inputChar)
     else {
         if (inputChar == '\n') {
             putchar(inputChar);
-            lineCount++;
         }
         state = IT_IS_A_COMMENT;
     }
@@ -141,7 +140,6 @@ enum Statetype handleMaybeClosingState(int inputChar)
     }
     else {
         if (inputChar == '\n') {
-            lineCount++;
             putchar(inputChar);
         }
         state = IT_IS_A_COMMENT;
@@ -154,6 +152,9 @@ int main(void)
     int inputChar;
     enum Statetype state = INITIAL;
     while ((inputChar = getchar()) != EOF) {
+        if (inputChar == '\n') {
+            lineCount++;
+        }
         switch (state) {
             case INITIAL:
                 state = handleInitialState(inputChar);
