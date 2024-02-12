@@ -170,7 +170,7 @@ int main(void)
         }
         switch (state) {
             case INITIAL:
-                state = handleInitialState(inputChar, lineCount, startOfUnterminated);
+                state = handleInitialState(inputChar, &lineCount, &startOfUnterminated);
                 break;
             case STRING_LITERAL:
                 state = handleStringLiteralState(inputChar);
@@ -185,13 +185,13 @@ int main(void)
                 state = handleEscapeCharacterState(inputChar);
                 break;
             case MAYBE_A_COMMENT:
-                state = handleMaybeACommentState(inputChar, lineCount, startOfUnterminated);
+                state = handleMaybeACommentState(inputChar, &lineCount, &startOfUnterminated);
                 break;
             case IT_IS_A_COMMENT:
                 state = handleItIsACommentState(inputChar);
                 break;
             case MAYBE_CLOSING:
-                state = handleMaybeClosingState(inputChar, lineCount);
+                state = handleMaybeClosingState(inputChar, &lineCount);
                 break;
         }
 
