@@ -10,7 +10,12 @@ enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL,
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
 MAYBE_CLOSING};
 
-/*This handles the Intitial State */
+/*The '*' infront of the variable declarations is a pointer to the variable. 
+Since I will be updatating lineCount and startOfUnterminated, having the '*' 
+would make sure each of the two variables stores the memory address of the integer 
+variable and not the actual value at that time. */
+
+/*This function handles the Intitial State */
 enum Statetype handleInitialState(int inputChar, int *lineCount, int *startOfUnterminated)
 {
     enum Statetype state;
@@ -33,7 +38,7 @@ enum Statetype handleInitialState(int inputChar, int *lineCount, int *startOfUnt
 
 }
 
-/*This handles the String Literal State */
+/*This function handles the String Literal State */
 enum Statetype handleStringLiteralState(int inputChar)
 { 
     enum Statetype state;
@@ -53,7 +58,7 @@ enum Statetype handleStringLiteralState(int inputChar)
 
 }
 
-/*This handles the Character Literal State */
+/*This function handles the Character Literal State */
 enum Statetype handleCharacterLiteralState(int inputChar)
 { 
     enum Statetype state;
@@ -72,7 +77,7 @@ enum Statetype handleCharacterLiteralState(int inputChar)
     return state;
 }
 
-/*This handles the Escape String State */
+/*This function handles the Escape String State */
 enum Statetype handleEscapeStringState(int inputChar)
 {
     enum Statetype state;
@@ -81,7 +86,7 @@ enum Statetype handleEscapeStringState(int inputChar)
     return state;
 }
 
-/*This handles the Escape Character State */
+/*This function handles the Escape Character State */
 enum Statetype handleEscapeCharacterState(int inputChar)
 {
     enum Statetype state;
@@ -90,7 +95,7 @@ enum Statetype handleEscapeCharacterState(int inputChar)
     return state;
 }
 
-/*This handles the 'Maybe A Comment' State */
+/*This function handles the 'Maybe A Comment' State */
 enum Statetype handleMaybeACommentState(int inputChar, int *lineCount, int *startOfUnterminated)
 {
     enum Statetype state;
@@ -121,7 +126,7 @@ enum Statetype handleMaybeACommentState(int inputChar, int *lineCount, int *star
     return state;
 }
 
-/*This handles the 'It Is A Comment' State */
+/*This function handles the 'It Is A Comment' State */
 enum Statetype handleItIsACommentState(int inputChar)
 {
     enum Statetype state;
@@ -137,12 +142,12 @@ enum Statetype handleItIsACommentState(int inputChar)
     return state;
 }
 
-/*This handles the 'Maybe Closing' State */
+/*This function handles the 'Maybe Closing' State */
 enum Statetype handleMaybeClosingState(int inputChar, int *lineCount)
 {
     enum Statetype state;
     if (inputChar == '/') {
-        (*lineCount)--;
+        (*lineCount)--; /*Decrement the value and change the reference of the pointer */
         state = INITIAL;
     }
     else if (inputChar == '*'){
