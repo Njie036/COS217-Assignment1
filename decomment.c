@@ -5,14 +5,10 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-/*All states used */
+/*These are all the states used */
 enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL, 
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
 MAYBE_CLOSING};
-
-
-int lineCount = 0; /*Keeps track of the line we are on */
-int startOfUnterminated = 1; /*Keeps track of the start of unterminated comment */
 
 /*This handles the Intitial State */
 enum Statetype handleInitialState(int inputChar)
@@ -95,7 +91,7 @@ enum Statetype handleEscapeCharacterState(int inputChar)
 }
 
 /*This handles the 'Maybe A Comment' State */
-enum Statetype handleMaybeACommentState(int inputChar)
+enum Statetype handleMaybeACommentState(int inputChar, int lineCount, int startOfUnterminated)
 {
     enum Statetype state;
     if (inputChar == '*') {
@@ -142,7 +138,7 @@ enum Statetype handleItIsACommentState(int inputChar)
 }
 
 /*This handles the 'Maybe Closing' State */
-enum Statetype handleMaybeClosingState(int inputChar)
+enum Statetype handleMaybeClosingState(int inputChar, int lineCount)
 {
     enum Statetype state;
     if (inputChar == '/') {
@@ -164,7 +160,9 @@ enum Statetype handleMaybeClosingState(int inputChar)
 /*This is the main where all the trasitions take place. */
 int main(void)
 {
-    int inputChar;
+    int inputChar; /*The current input character */
+    int lineCount = 0; /*Keeps track of the line we are on */
+    int startOfUnterminated = 1; /*Keeps track of the start of unterminated comment */
     enum Statetype state = INITIAL;
     while ((inputChar = getchar()) != EOF) {
         if (inputChar == '\n') { /*Keeps track of the line we are on */
@@ -187,17 +185,18 @@ int main(void)
                 state = handleEscapeCharacterState(inputChar);
                 break;
             case MAYBE_A_COMMENT:
-                state = handleMaybeACommentState(inputChar);
+                state = handleMaybeACommentState(inputChar, lineCount, startOfUnterminated);
                 break;
             case IT_IS_A_COMMENT:
                 state = handleItIsACommentState(inputChar);
                 break;
             case MAYBE_CLOSING:
-                state = handleMaybeClosingState(inputChar);
+                state = handleMaybeClosingState(inputChar, lineCount);
                 break;
         }
 
     }
+    
     /*Special case for a text ending with a forward slash when 
     in 'Maybe It Is A Comment' state */ 
     if (state == MAYBE_A_COMMENT) {
