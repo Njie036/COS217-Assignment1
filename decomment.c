@@ -11,7 +11,7 @@ ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT,
 MAYBE_CLOSING};
 
 /*This handles the Intitial State */
-enum Statetype handleInitialState(int inputChar, int lineCount, int startOfUnterminated)
+enum Statetype handleInitialState(int inputChar, int *lineCount, int *startOfUnterminated)
 {
     enum Statetype state;
     if (inputChar == '/') {
@@ -91,12 +91,12 @@ enum Statetype handleEscapeCharacterState(int inputChar)
 }
 
 /*This handles the 'Maybe A Comment' State */
-enum Statetype handleMaybeACommentState(int inputChar, int lineCount, int startOfUnterminated)
+enum Statetype handleMaybeACommentState(int inputChar, int *lineCount, int *startOfUnterminated)
 {
     enum Statetype state;
     if (inputChar == '*') {
         putchar(' ');
-        startOfUnterminated += lineCount;
+        *startOfUnterminated += *lineCount;
         state = IT_IS_A_COMMENT;
     }
     else if (inputChar == '/') {
@@ -138,11 +138,11 @@ enum Statetype handleItIsACommentState(int inputChar)
 }
 
 /*This handles the 'Maybe Closing' State */
-enum Statetype handleMaybeClosingState(int inputChar, int lineCount)
+enum Statetype handleMaybeClosingState(int inputChar, int *lineCount)
 {
     enum Statetype state;
     if (inputChar == '/') {
-        lineCount--;
+        *lineCount--;
         state = INITIAL;
     }
     else if (inputChar == '*'){
