@@ -142,7 +142,7 @@ enum Statetype handleMaybeClosingState(int inputChar, int *lineCount)
 {
     enum Statetype state;
     if (inputChar == '/') {
-        *(lineCount--);
+        (*lineCount)--;
         state = INITIAL;
     }
     else if (inputChar == '*'){
