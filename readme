@@ -1,9 +1,7 @@
 Assignment 1 readme File
 
 ------------------------------------------------------------------------
-What is your name?
-
-
+What is your name? Ndongo Njie
 
 ------------------------------------------------------------------------
 What authorized sources of information did you use to complete the
@@ -12,7 +10,13 @@ in the "Policies" web page (also available on armlab in the file
 ~cos217/AuthorizedSourcesList ) to this section of the readme file,
 and edit it as appropriate.
 
-
+The course's lectures.
+The course's precepts.
+The course's website.
+The course's current staff members outside of class time through office hours.
+The course's current staff members outside of class time through e-mail.
+The course's current staff members outside of class time through Ed.
+Current Intro Lab TAs through visits to the Intro COS Lab.
 
 ------------------------------------------------------------------------
 What unauthorized sources of information did you use to complete the
@@ -26,12 +30,15 @@ interaction, may additionally require the interaction being reported
 to the Committee on Discipline. Write "None" if you used no
 unauthorized sources of information.
 
-
+None
 
 ------------------------------------------------------------------------
 What is your assessment of the assignment? Was it helpful? Was it fun?
 
-
+Though getting used to the whole armlab logistics took time, I really enjoyed 
+the dfa and coding part of this assignment. It is also interesting to know that
+Java and C has a lot in common. Debugging also took sometime but I was so proud 
+of myself when I found the bug and got my code to pass all the test case. 
 
 ------------------------------------------------------------------------
 (optional) What information can you provide about your submission that
