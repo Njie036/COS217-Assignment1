@@ -1,14 +1,20 @@
+/*The program performs a subset of the de-comment job of the C preprocessor */
+
+/*The libraries used */
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 
+/*All states used */
 enum Statetype {INITIAL, STRING_LITERAL, CHARACTER_LITERAL, 
 ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT, 
 MAYBE_CLOSING};
 
 
-int lineCount = 0;
-int inComment = 1;
+int lineCount = 0; /*Keeps track of the line we are on */
+int startOfUnterminated = 1; /*Keeps track of the start of unterminated comment */
+
+/*This handles the Intitial State */
 enum Statetype handleInitialState(int inputChar)
 {
     enum Statetype state;
@@ -31,6 +37,7 @@ enum Statetype handleInitialState(int inputChar)
 
 }
 
+/*This handles the String Literal State */
 enum Statetype handleStringLiteralState(int inputChar)
 { 
     enum Statetype state;
@@ -50,6 +57,7 @@ enum Statetype handleStringLiteralState(int inputChar)
 
 }
 
+/*This handles the Character Literal State */
 enum Statetype handleCharacterLiteralState(int inputChar)
 { 
     enum Statetype state;
@@ -68,6 +76,7 @@ enum Statetype handleCharacterLiteralState(int inputChar)
     return state;
 }
 
+/*This handles the Escape String State */
 enum Statetype handleEscapeStringState(int inputChar)
 {
     enum Statetype state;
@@ -76,6 +85,7 @@ enum Statetype handleEscapeStringState(int inputChar)
     return state;
 }
 
+/*This handles the Escape Character State */
 enum Statetype handleEscapeCharacterState(int inputChar)
 {
     enum Statetype state;
@@ -84,12 +94,13 @@ enum Statetype handleEscapeCharacterState(int inputChar)
     return state;
 }
 
+/*This handles the 'Maybe A Comment' State */
 enum Statetype handleMaybeACommentState(int inputChar)
 {
     enum Statetype state;
     if (inputChar == '*') {
         putchar(' ');
-        inComment += lineCount;
+        startOfUnterminated += lineCount;
         state = IT_IS_A_COMMENT;
     }
     else if (inputChar == '/') {
@@ -114,6 +125,7 @@ enum Statetype handleMaybeACommentState(int inputChar)
     return state;
 }
 
+/*This handles the 'It Is A Comment' State */
 enum Statetype handleItIsACommentState(int inputChar)
 {
     enum Statetype state;
@@ -129,6 +141,7 @@ enum Statetype handleItIsACommentState(int inputChar)
     return state;
 }
 
+/*This handles the 'Maybe Closing' State */
 enum Statetype handleMaybeClosingState(int inputChar)
 {
     enum Statetype state;
@@ -148,12 +161,13 @@ enum Statetype handleMaybeClosingState(int inputChar)
     return state;
 }
 
+/*This is the main where all the trasitions take place. */
 int main(void)
 {
     int inputChar;
     enum Statetype state = INITIAL;
     while ((inputChar = getchar()) != EOF) {
-        if (inputChar == '\n') {
+        if (inputChar == '\n') { /*Keeps track of the line we are on */
             lineCount++;
         }
         switch (state) {
@@ -184,13 +198,16 @@ int main(void)
         }
 
     }
-    /*special case for ending with a forward slash when in maybe its a comment*/ 
+    /*Special case for a text ending with a forward slash when 
+    in 'Maybe It Is A Comment' state */ 
     if (state == MAYBE_A_COMMENT) {
         putchar('/');
     }
-    /* Special case for ending in an unterminated comment and print out exit failure message */
+
+    /* When the input ends with an unterminated comment and 
+    print out exit failure message */
     if (state == IT_IS_A_COMMENT || state == MAYBE_CLOSING) {
-        fprintf(stderr, "Error: line %d: unterminated comment\n", inComment);
+        fprintf(stderr, "Error: line %d: unterminated comment\n", startOfUnterminated);
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
