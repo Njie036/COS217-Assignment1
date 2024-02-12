@@ -11,7 +11,7 @@ ESCAPE_STRING, ESCAPE_CHARACTER, MAYBE_A_COMMENT, IT_IS_A_COMMENT,
 MAYBE_CLOSING};
 
 /*This handles the Intitial State */
-enum Statetype handleInitialState(int inputChar)
+enum Statetype handleInitialState(int inputChar, int lineCount, int startOfUnterminated)
 {
     enum Statetype state;
     if (inputChar == '/') {
@@ -170,7 +170,7 @@ int main(void)
         }
         switch (state) {
             case INITIAL:
-                state = handleInitialState(inputChar);
+                state = handleInitialState(inputChar, lineCount, startOfUnterminated);
                 break;
             case STRING_LITERAL:
                 state = handleStringLiteralState(inputChar);
@@ -196,7 +196,7 @@ int main(void)
         }
 
     }
-    
+
     /*Special case for a text ending with a forward slash when 
     in 'Maybe It Is A Comment' state */ 
     if (state == MAYBE_A_COMMENT) {
